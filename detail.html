@@ -1,18 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Index.us 상세 페이지</title>
-</head>
-<body>
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      const members = [
+        { id: 1, name: "서성경", age: 30 },
+        { id: 2, name: "장혜준", age: 31 },
+        { id: 3, name: "이현경", age: 31 },
+        { id: 4, name: "이승희", age: 31 },
+        { id: 5, name: "최지나", age: 31 },
+      ];
+
+      $(document).ready(function () {
+        // 1. url에서 id 추출
+        const params = new URLSearchParams(window.location.search);
+        const id = parseInt(params.get("id"));
+
+        // 2. id에 해당하는 멤버 찾기
+        const member = members.find((m) => m.id === id);
+
+        // 3. 정보 표시
+        if (member) {
+          $("#member_detail").html(`
+          <h2>이름: ${member.name}</h2>
+          <p>나이: ${member.age}세</p>
+        `);
+        } else {
+          $("#member_detail").html("<p>해당 멤버를 찾을 수 없습니다.</p>");
+        }
+      });
+    </script>
+  </head>
+  <body>
     <!--Navigation bar-->
     <nav class="navbar">
-        <ul class="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="guestbook.html">방명록</a></li>
-        </ul>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="guestbook.html">방명록</a></li>
+      </ul>
     </nav>
-    
-</body>
+
+    <!-- 멤버 상세 정보 표시 영역 -->
+    <div id="member_detail" style="padding: 20px"></div>
+  </body>
 </html>
