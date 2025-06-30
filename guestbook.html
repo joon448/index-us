@@ -1,11 +1,119 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Index.us 방명록</title>
     <link rel="stylesheet" href="css/style.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js";
+        import { getFirestore } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js";
+        import { collection, addDoc } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js";
+        import { getDocs } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js";
+        import { firebaseConfig } from './firebaseConfig.js';
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // 비밀번호 미 입력시 임의 난수로 설정
+        function generateSecureRandomString() {
+            const array = new Uint8Array(10);
+            window.crypto.getRandomValues(array);
+            return Array.from(array, dec => ('0' + (dec % 36).toString(36)).slice(-1)).join('');
+        }
+
+        // 비밀번호 암호화
+        async function hashPassword(password) {
+            const encoder = new TextEncoder();
+            const data = encoder.encode(password.length > 0 ? password : generateSecureRandomString());
+            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+
+            return Array.from(new Uint8Array(hashBuffer))
+                .map(b => b.toString(16).padStart(2, '0'))
+                .join('');
+        }
+
+        // 현재 시점 텍스트화
+        async function getDatetime() {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const hour = String(now.getHours()).padStart(2, '0');
+            const min = String(now.getMinutes()).padStart(2, '0');
+            const sec = String(now.getSeconds()).padStart(2, '0');
+            const datetime = `${year}-${month}-${day} ${hour}:${min}:${sec}`;
+            return datetime;
+        }
+
+        // 저장 함수
+        $("#savebtn").click(async function (e) {
+            e.preventDefault();
+
+            let name = $('#inputNickname').val().length > 0 ? $('#inputNickname').val() : "Guest";
+            let password = await hashPassword($('#inputPassword').val());
+            let content = $('#inputText').val();
+            let datetime = await getDatetime();
+
+            // content가 비어있으면 함수 종료
+            if (!content || content.trim().length === 0) {
+                alert('내용을 입력하세요.');
+                return;
+            }
+
+            let doc = {
+                'name': name,
+                'password': password,
+                'content': content,
+                'datetime': datetime
+            };
+
+            try {
+                await addDoc(collection(db, "guestbook"), doc);
+                alert('저장완료');
+                window.location.reload();
+            } catch (e) {
+                alert('저장 중 에러 발생: ' + e.message);
+            }
+        })
+
+        // 로드 함수
+        let docs = await getDocs(collection(db, "guestbook"));
+        docs.forEach((doc) => {
+            let row = doc.data();
+
+            let name = row['name']
+            let content = row['content']
+            let datetime = row['datetime']
+
+            let temp_html = `
+                <div class="col bg-dark-subtle p-2 fs-5 rounded-3">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">${name}</div>
+                        </div>
+                        <div class="row">
+                        <div class="col">${content}</div>
+                        </div>
+                        <div class="row justify-content-between fs-6 fw-light align-items-center">
+                            <div class="col-2 text-body-tertiary fs-6">${datetime}</div>
+                            <button type="button" class="btn btn-danger btn-sm col-1">X</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            $('#reply').append(temp_html)
+        });
+    </script>
 </head>
+
 <body>
     <!--Navigation bar-->
     <nav class="navbar">
@@ -15,5 +123,49 @@
         </ul>
     </nav>
 
+    <div class="m-5">
+        <!-- 방명록 작성 폼 -->
+        <div class="p-3 mb-4 rounded-3 bg-dark">
+            <form>
+                <div class="container">
+                    <div class="row mb-3">
+                        <div class="col-2">
+                            <input type="text" class="form-control" id="inputNickname" placeholder="별칭">
+                        </div>
+                        <div class="col-2">
+                            <input type="password" class="form-control" id="inputPassword" placeholder="비밀번호">
+                        </div>
+                        <div class="col-2 offset-6">
+                            <button type="submit" class="btn btn-primary" id="savebtn">등록하기</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <input type="text" class="form-control" id="inputText">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="bg-dark rounded-3">
+            <div id="reply" class="row py-2 px-5 row-cols-1 row-cols-md g-1">
+                <div class="col bg-dark-subtle p-2 fs-5 rounded-3">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">이름</div>
+                        </div>
+                        <div class="row">
+                            <div class="col">내용</div>
+                        </div>
+                        <div class="row justify-content-between fs-6 fw-light align-items-center">
+                            <div class="col-2 text-body-tertiary fs-6">2025-12-31</div>
+                            <button type="button" class="btn btn-danger btn-sm col-1">X</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
+
 </html>
