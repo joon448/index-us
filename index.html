@@ -5,6 +5,65 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Index.us 메인 페이지</title>
     <link rel="stylesheet" href="css/style.css" />
+    <style>
+        .members {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            padding: 20px;
+            flex-wrap: wrap;
+        }
+          
+        .member-card {
+            text-align: center;
+            border: 1px solid #dddddd;
+            padding: 20px;
+            border-radius: 10px;
+            width: 180px;
+            transition: transform 0.2s ease;
+        }
+        
+        .member-card:hover {
+            transform: scale(1.05);
+        }
+        
+        .member-image {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border: 3px solid whitesmoke;
+            background-color: #dddddd;
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
+
+        .team-intro {
+            display: flex;
+            justify-content:center;
+            align-items: center;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .team-image {
+            width: 600px;
+            margin: 20px auto;
+        }
+
+        .team-info {
+            margin: 0 40px;
+            max-width: 400px;
+            width: 400px;
+            height: 300px;
+            padding: 20px;
+            background-color: whitesmoke;
+        }
+
+        a {
+            text-decoration-line: none;
+            color: black;
+        }
+    </style>
 </head>
 <body>
     <!--Navigation bar-->
@@ -16,8 +75,61 @@
     </nav>
 
     <!--팀소개-->
-    
+    <section class="team">
+        <div class="team-intro">
+            <img src="images/team.png" alt="팀 사진" class="team-image"/>
+            <div class="team-info">
+                <h1>Index.us</h1>
+                <p>
+                    팀 이름 의미<br>
+                    팀 소개 내용 넣기
+                </p>
+            </div>
+        </div>
+    </section>
+
     <!--팀원소개-->
+    <section class="members">
+        <a href="detail.html?id=2">
+            <div class="member-card">
+                <img src="images/member-장혜준.png" class="member-image"/>
+                <h3>장혜준</h3>
+                <p>MBTI: ISFP</p>
+            </div>
+        </a>
+
+        <a href="detail.html?id=1">
+            <div class="member-card">
+                <img src="images/member-서성경.png" class="member-image"/>
+                <h3>서성경</h3>
+                <p>MBTI: ESTJ</p>
+        
+            </div>
+        </a>
+
+        <a href="detail.html?id=3">
+            <div class="member-card">
+                <img src="images/member-이현경.png" class="member-image"/>
+                <h3>이현경</h3>
+                <p>MBTI: ????</p>
+            </div>
+        </a>
+        
+        <a href="detail.html?id=4">
+            <div class="member-card">
+                <img src="images/member-이승희.png" class="member-image"/>
+                <h3>이승희</h3>
+                <p>MBTI: INFJ</p>
+            </div>
+        </a>
+        <a href="detail.html?id=5">
+            <div class="member-card">
+                <img src="images/member-최지나.png" class="member-image"/>
+                <h3>최지나</h3>
+                <p>MBTI: ISTP</p>
+            </div>
+        </a>
+    </section>
 
 </body>
 </html>
