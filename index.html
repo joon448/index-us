@@ -1,32 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Index.us 메인 페이지</title>
-    <link rel="stylesheet" href="css/style.css" />
+    <!--파피콘 삽입-->
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+
+    <link rel="stylesheet" href="css/style2.css" />
     <style>
         .members {
             display: flex;
             justify-content: center;
-            gap: 40px;
-            padding: 20px;
+            gap: 20px;
+            padding: 20px 40px;
             flex-wrap: wrap;
+            max-width: none;
+            margin: 0 auto;
         }
-          
+
         .member-card {
             text-align: center;
             border: 1px solid #dddddd;
             padding: 20px;
             border-radius: 10px;
             width: 180px;
+            height: 300px;
+            ;
             transition: transform 0.2s ease;
+            background-color: white;
         }
-        
+
+        .member-card p {
+            color: #007acc
+        }
+
         .member-card:hover {
             transform: scale(1.05);
         }
-        
+
         .member-image {
             width: 100px;
             height: 100px;
@@ -39,7 +52,7 @@
 
         .team-intro {
             display: flex;
-            justify-content:center;
+            justify-content: center;
             align-items: center;
             max-width: 1100px;
             margin: 0 auto;
@@ -47,6 +60,7 @@
 
         .team-image {
             width: 600px;
+            height: 300px;
             margin: 20px auto;
         }
 
@@ -56,7 +70,30 @@
             width: 500px;
             height: 300px;
             padding: 20px;
-            background-color: whitesmoke;
+            background: linear-gradient(145deg, #fff89e 0%, #fdf6b2 50%, #f2e08c 100%);
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            box-shadow:
+                -5px -5px 12px rgba(255, 255, 255, 0.6),
+                5px 5px 12px rgba(0, 0, 0, 0.2);
+            transform: rotate(-1.5deg);
+            border-radius: 4px;
+        }
+
+        /* 접힌 귀퉁이 효과 */
+        .team-info::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #f2e08c 0%, #fff89e 100%);
+            clip-path: polygon(100% 0%, 0% 100%, 100% 100%);
+            box-shadow: -2px -2px 5px rgba(0, 0, 0, 0.2);
         }
 
         a {
@@ -65,70 +102,74 @@
         }
     </style>
 </head>
-<body>
+
+<body class="blue">
     <!--Navigation bar-->
     <nav class="top-navbar">
         <ul class="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="guestbook.html">방명록</a></li>
+            <li><a href="index.html" style="font-size: 1.6rem !important;">🚢Home</a></li>
+            <li><a href="guestbook.html" style="font-size: 1.6rem !important;">🌊방명록</a></li>
         </ul>
     </nav>
 
     <!--팀소개-->
     <section class="team">
         <div class="team-intro">
-            <img src="images/team.png" alt="팀 사진" class="team-image"/>
+            <img src="images/team.png" alt="팀 사진" class="team-image" />
             <div class="team-info">
                 <h1>Index.us</h1>
                 <p>
                     웹에서 index.html이 시작 페이지인 것처럼,<br> Index.us는 저희 팀을 처음 소개하는 시작점이라는<br> 의미를 담고 있습니다!<br>
                 </p>
             </div>
+
         </div>
     </section>
 
     <!--팀원소개-->
     <section class="members">
-        <a href="detail.html?id=2">
+        <a href="detail.html?id=1">
             <div class="member-card">
-                <img src="images/member-장혜준.png" class="member-image"/>
-                <h3>장혜준</h3>
-                <p>ISFP<br>메인페이지 구조 및 기능</p>
+                <img src="images/member-서성경.png" class="member-image" />
+                <h3>서성경</h3>
+                <p>ESTJ<br>상세페이지</p>
             </div>
         </a>
 
-        <a href="detail.html?id=1">
+        <a href="detail.html?id=4">
             <div class="member-card">
-                <img src="images/member-서성경.png" class="member-image"/>
-                <h3>서성경</h3>
-                <p>ESTJ<br>상세페이지</p>
-        
+                <img src="images/member-이승희.png" class="member-image" />
+                <h3>이승희</h3>
+                <p>INFJ<br>방명록페이지 구조 및 기능</p>
             </div>
         </a>
 
         <a href="detail.html?id=3">
             <div class="member-card">
-                <img src="images/member-이현경.png" class="member-image"/>
+                <img src="images/member-이현경.png" class="member-image" />
                 <h3>이현경</h3>
                 <p>ESTP<br>방명록페이지 CSS</p>
             </div>
         </a>
-        
-        <a href="detail.html?id=4">
+
+        <a href="detail.html?id=2">
             <div class="member-card">
-                <img src="images/member-이승희.png" class="member-image"/>
-                <h3>이승희</h3>
-                <p>INFJ<br>방명록페이지 구조 및 기능</p>
+                <img src="images/member-장혜준.png" class="member-image" />
+                <h3>장혜준</h3>
+                <p>ISFP<br>메인페이지 구조 및 기능</p>
             </div>
         </a>
+
         <a href="detail.html?id=5">
             <div class="member-card">
-                <img src="images/member-최지나.png" class="member-image"/>
+                <img src="images/member-최지나.png" class="member-image" />
                 <h3>최지나</h3>
                 <p>ISTP<br>메인페이지 CSS</p>
             </div>
         </a>
     </section>
 
+
 </body>
+
 </html>
