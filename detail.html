@@ -14,8 +14,14 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
       body {
-        margin: 0;
-        padding: 0;
+        display: block;
+        padding: 8px;
+      }
+      ul {
+        margin-top: 1rem;
+        line-height: 0;
+        padding-top: 9.5px;
+        padding-bottom: 9.5px;
       }
       .detail_container {
         display: flex;
@@ -32,9 +38,21 @@
         max-width: 800px;
       }
 
+      @media (max-width: 600px) {
+        .detail_card_container {
+          margin-top: 30px;
+          padding: 0;
+        }
+      }
+
       .detail_card_container > p {
         font-size: 28px;
         font-weight: bold;
+      }
+      @media (max-width: 600px) {
+        .detail_card_container > p {
+          text-align: center;
+        }
       }
 
       .detail_card {
@@ -92,7 +110,7 @@
           id: 1,
           name: "서성경",
           birthday: "1996-09-15",
-          desc: "저는 누구누구입니다 자긱소개에 대한 예시를 작성해 보도록 하겠습니다. 길게길게 대충대충",
+          desc: "단순히 기능을 구현하는 개발자가 아니라 서비스의 흐름을 깊이 이해하고 기술로 완성도를 높일 수 있는 백엔드 개발자를 지향합니다.",
           img: "images/member-서성경.png",
           mbti: "ESTJ",
           hobby: ["여행", "코딩", "강아지"],
@@ -102,46 +120,46 @@
         {
           id: 2,
           name: "장혜준",
-          birthday: "2025-06-30",
-          desc: "헬로헬로",
+          birthday: "1999-10-30",
+          desc: "안녕하세요, 책임감 있고 안정적인 협업을 통해 팀에 기여하는 개발자가 되고 싶은 장혜준입니다! 묵묵하고 꾸준하게 맡은 일은 끝까지 다하는 것이 저의 장점입니다.",
           img: "images/member-장혜준.png",
-          mbti: "",
-          hobby: [],
-          email: "",
-          blog: "",
+          mbti: "ISFP",
+          hobby: ["유튜브 시청", "음악 감상", "스쿠버다이빙"],
+          email: "iris99hj@gmail.com",
+          blog: "https://onya.tistory.com/",
         },
         {
           id: 3,
           name: "이현경",
-          birthday: "2025-06-30",
-          desc: "헬로지토헬로",
+          birthday: "1994-04-21",
+          desc: "늘 새로운 시선으로 맡은 일을 끝까지 해내는 책임감있는 개발자가 되겠습니다.",
           img: "images/member-이현경.png",
-          mbti: "",
-          hobby: [],
-          email: "",
-          blog: "",
+          mbti: "ESTP",
+          hobby: ["독서"],
+          email: "slowslow9150@gmail.com",
+          blog: "https://velog.io/@hyunkyung/posts",
         },
         {
           id: 4,
           name: "이승희",
-          birthday: "2025-06-30",
-          desc: "아니아니요헬로",
+          birthday: "1999-12-10",
+          desc: "사용자의 문제를 해결하고 편리함을 제공하여 만족을 주고싶은 백엔드 개발자 이승희 입니다!",
           img: "images/member-이승희.png",
-          mbti: "",
-          hobby: [],
-          email: "",
-          blog: "",
+          mbti: "INFJ",
+          hobby: ["독서", "음주(칵테일, 위스키)", "게임"],
+          email: "hidden98716@gmail.com",
+          blog: "https://www.notion.so/20d889903f7480838995fbb6e4a5ced4",
         },
         {
           id: 5,
           name: "최지나",
-          birthday: "2025-06-30",
-          desc: "헬로헬로ㅎㅎㅎ",
+          birthday: "1991–09-18",
+          desc: "성장하는 백엔드 개발자 최지나 입니다!",
           img: "images/member-최지나.png",
-          mbti: "",
-          hobby: [],
-          email: "",
-          blog: "",
+          mbti: "ISTP",
+          hobby: ["독서"],
+          email: "moi404@naver.com",
+          blog: "https://velog.io/@moi404",
         },
       ];
 
@@ -195,7 +213,7 @@
                 <div class="detail_contact">
                   <div>Contact</div>
                   <div><span>E-mail: ${member.email}</span></div>
-                  <div><span class="detail_blog">Blog: <a href="${member.blog}" target="_blank">${member.blog}</a></span></div>
+                  <div><span class="detail_blog">Blog: <a href="${member.blog}" target="_blank">${member.name}의 블로그</a></span></div>
                 </div>
               </div>
             </div>
@@ -231,7 +249,7 @@
   </head>
   <body>
     <!--Navigation bar-->
-    <nav class="navbar">
+    <nav class="top-navbar">
       <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
         <li><a href="guestbook.html">방명록</a></li>
@@ -240,7 +258,7 @@
 
     <!-- 멤버 상세 정보 표시 영역 -->
     <div class="detail_container">
-      <div id="member_detail" style="padding: 20px"></div>
+      <div id="member_detail"></div>
     </div>
   </body>
 </html>
