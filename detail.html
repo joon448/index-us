@@ -108,6 +108,18 @@
     .detail_blog>a {
       color: black;
     }
+
+    .about-text {
+      font-family: 'exqt', sans-serif;
+      color: #fff89e
+    }
+
+    .contact-text {
+      font-family: 'exqt', sans-serif;
+      color: #007acc;
+      font-size: 1.4em;
+    }
+
   </style>
   <script>
     const members = [
@@ -192,7 +204,7 @@
         // 멤버일 때 추가하기
         $("#member_detail").html(`
           <div class="detail_card_container">
-            <p>ABOUT ${member.name}</p>
+            <p><span class="about-text">ABOUT</span> ${member.name}</p>
             <div class="detail_card">
               <img
                 src="${member.img}"
@@ -216,7 +228,7 @@
                 </div>
                 <!-- 컨택 -->
                 <div class="detail_contact">
-                  <div>Contact</div>
+                  <iv class="contact-text">Contact</div>
                   <div><span>E-mail: ${member.email}</span></div>
                   <div><span class="detail_blog">Blog: <a href="${member.blog}" target="_blank">${member.name}의 블로그</a></span></div>
                 </div>
