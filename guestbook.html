@@ -19,12 +19,12 @@
         import { getDocs } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js";
 
         const firebaseConfig = {
-            apiKey: "AIzaSyCrUIFbxhH5SwhcDpVYQFvOqnBfkXyLrRI",
+            apiKey: "",
             authDomain: "index-us-db.firebaseapp.com",
             projectId: "index-us-db",
             storageBucket: "index-us-db.firebasestorage.app",
-            messagingSenderId: "695468982456",
-            appId: "1:695468982456:web:b3574e3a8c42404ca2f44d"
+            messagingSenderId: "",
+            appId: ""
         };
 
 
@@ -136,6 +136,8 @@
             row.id = doc.id;
             return row;
         });
+        // 일시 기준 정렬
+
         boardArr.sort((a, b) => new Date(b.datetime.replace(' ', 'T')) - new Date(a.datetime.replace(' ', 'T')));
 
         boardArr.forEach((row) => {
