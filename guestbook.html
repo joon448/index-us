@@ -27,6 +27,7 @@
             appId: ""
         };
 
+
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
@@ -136,6 +137,7 @@
             return row;
         });
         // 일시 기준 정렬
+
         boardArr.sort((a, b) => new Date(b.datetime.replace(' ', 'T')) - new Date(a.datetime.replace(' ', 'T')));
 
         boardArr.forEach((row) => {
@@ -170,7 +172,7 @@
 
 <body>
     <!--Navigation bar-->
-    <nav class="navbar">
+    <nav class="top-navbar">
         <ul class="nav-links">
             <li><a href="index.html">Home</a></li>
             <li><a href="guestbook.html">방명록</a></li>
