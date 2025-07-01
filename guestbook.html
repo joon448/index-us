@@ -146,7 +146,7 @@
             let datetime = row['datetime']
 
             let temp_html = `
-                <div class="col bg-dark-subtle p-2 fs-5 rounded-3">
+                <div class="col p-2 fs-5 rounded-3">
                     <div class="container">
                         <div class="row">
                             <div class="col">${name}</div>
@@ -168,9 +168,81 @@
             $('#reply').append(temp_html)
         });
     </script>
+    <style>
+        body.blue {
+            background: radial-gradient(circle at center, #E0F4FF, #B3DCFF);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        @font-face {
+            font-family: 'exqt';
+            src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2506-1@1.0/exqt.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        .writing_box {
+            font-family: 'exqt', sans-serif;
+            text-align: center;
+            border: 1px solid white;
+            border-radius: 20px;
+            background-color: transparent;
+        }
+
+        .guestbook_box {
+            text-align: start;
+            border: 1px solid white;
+            border-radius: 20px;
+            background-color: transparent;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+        .guest_post {
+            border: 1px solid white;
+            border-radius: 20px;
+            background-color: #E5F0FF;
+            padding-bottom: 10px;
+            font-family: 'exqt', sans-serif;
+        }
+
+        .name {
+            font-family: 'exqt', sans-serif;
+        }
+
+        .content {
+            font-family: 'exqt', sans-serif;
+        }
+
+        #inputNickname {
+            background-color: #E5F0FF;
+        }
+
+        #inputPassword {
+            background-color: #E5F0FF;
+        }
+
+        #inputText {
+            background-color: #E5F0FF;
+        }
+
+
+        .x_button {
+            font-family: 'exqt', sans-serif;
+            width: 80px;
+            height: 33px;
+            padding-left: 10px;
+            padding-right: 10px;
+            border-radius: 5px;
+            border: 1px solid #0A84FF;
+            background-color: #E5F0FF;
+        }
+    </style>
 </head>
 
-<body>
+<body class="blue">
     <!--Navigation bar-->
     <nav class="top-navbar">
         <ul class="nav-links">
@@ -181,7 +253,7 @@
 
     <div class="m-5">
         <!-- 방명록 작성 폼 -->
-        <div class="p-3 mb-4 rounded-3 bg-dark">
+        <div class="writing_box p-3 mb-4">
             <form>
                 <div class="container">
                     <div class="row mb-3">
@@ -191,7 +263,7 @@
                         <div class="col-2">
                             <input type="password" class="form-control" id="inputPassword" placeholder="비밀번호">
                         </div>
-                        <div class="col-2 offset-6">
+                        <div class="col-2 offset-6 text-end">
                             <button type="submit" class="btn btn-primary" id="savebtn">등록하기</button>
                         </div>
                     </div>
@@ -203,12 +275,5 @@
                 </div>
             </form>
         </div>
-        <div class="bg-dark rounded-3">
+        <div class="guest_post">
             <div id="reply" class="row py-2 px-5 row-cols-1 row-cols-md g-1">
-
-            </div>
-        </div>
-    </div>
-</body>
-
-</html>
