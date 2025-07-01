@@ -128,44 +128,80 @@
             }
         });
 
-        // 로드 함수
-        let docs = await getDocs(collection(db, "guestbook"));
-        let boardArr = docs.docs.map(doc => {
-            let row = doc.data();
-            row.id = doc.id;
-            return row;
-        });
-        // 일시 기준 정렬
-        boardArr.sort((a, b) => new Date(b.datetime.replace(' ', 'T')) - new Date(a.datetime.replace(' ', 'T')));
+        // 로드 기능
+        let allData = [];
+        let page = 0;    
+        let isLoading = false;
 
-        boardArr.forEach((row) => {
-            let name = row['name']
-            let content = row['content']
-            let datetime = row['datetime']
+        async function loadAllData() {
+            $('#reply-loading').show();
+            let docs = await getDocs(collection(db, "guestbook"));
 
-            let temp_html = `
+            allData = docs.docs.map(doc => ({
+                id: doc.id,
+                ...doc.data()
+            }));
+
+            // 정렬
+            allData.sort((a, b) => new Date(b.datetime.replace(' ', 'T')) - new Date(a.datetime.replace(' ', 'T')));
+            $('#reply-loading').hide();
+
+            // 첫페이지 출력
+            appendNextItems();
+        }
+
+        function appendNextItems() {
+            const itemsPerPage = 10;
+            const start = page * itemsPerPage;
+            const end = start + itemsPerPage;
+            const nextItems = allData.slice(start, end);
+
+            nextItems.forEach(item => {
+                $('#reply').append(`
                 <div class="col bg-dark-subtle p-2 fs-5 rounded-3">
                     <div class="container">
                         <div class="row">
-                            <div class="col">${name}</div>
+                            <div class="col">${item.name}</div>
                         </div>
                         <div class="row">
-                        <div class="col">${content}</div>
+                        <div class="col">${item.content}</div>
                         </div>
                         <div class="row justify-content-between fs-6 fw-light align-items-center">
-                            <div class="col-4 text-body-tertiary fs-6">${datetime}</div>
+                            <div class="col-4 text-body-tertiary fs-6">${item.datetime}</div>
                             <button 
                                 type="button" 
                                 class="btn btn-danger btn-sm col-1" 
                                 id="deletebtn" 
-                                data-id=${row.id}>X</button>
+                                data-id=${item.id}>X</button>
                         </div>
                     </div>
                 </div>
-            `;
-            $('#reply').append(temp_html)
+                `);
+            });
+
+            page++;
+        }
+
+        // 무한스크롤
+        $(window).on('scroll', function () {
+            if (isLoading) return;
+            if ($(window).scrollTop() + $(window).height() > $(document).height() - 200) {
+                if (page * 10 < allData.length) {
+                    isLoading = true;
+                    $('#reply-loading').show();
+                    appendNextItems();
+                    $('#reply-loading').hide();
+                    isLoading = false;
+                }
+            }
         });
-    </script>
+
+        // 전체 데이터 조회
+        $(function () {
+            loadAllData();
+        });
+    
+        </script>
 </head>
 
 <body>
@@ -205,6 +241,7 @@
             <div id="reply" class="row py-2 px-5 row-cols-1 row-cols-md g-1">
 
             </div>
+            <div id="reply-loading" class="m-3 text-white text-center" style="display:none;">loading...</div>
         </div>
     </div>
 </body>
