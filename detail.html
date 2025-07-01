@@ -1,191 +1,196 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Index.us 상세 페이지</title>
-    <link rel="stylesheet" href="css/style.css" />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-      crossorigin="anonymous"
-    />
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <style>
-      body {
-        display: block;
-        padding: 8px;
-      }
-      ul {
-        margin-top: 1rem;
-        line-height: 0;
-        padding-top: 9.5px;
-        padding-bottom: 9.5px;
-      }
-      .detail_container {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-      }
 
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Index.us 상세 페이지</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style2.css" />
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+    }
+
+    nav.top-navbar {
+      font-family: 'exqt', sans-serif;
+    }
+
+    ul {
+      margin-top: 1rem;
+      line-height: 0;
+      padding-top: 9.5px;
+      padding-bottom: 9.5px;
+    }
+
+    .detail_container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .detail_card_container {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      padding: 30px;
+      max-width: 800px;
+    }
+
+    @media (max-width: 600px) {
       .detail_card_container {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        padding: 30px;
-        max-width: 800px;
+        margin-top: 30px;
+        padding: 0;
       }
+    }
 
-      @media (max-width: 600px) {
-        .detail_card_container {
-          margin-top: 30px;
-          padding: 0;
-        }
+    .detail_card_container>p {
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    @media (max-width: 600px) {
+      .detail_card_container>p {
+        text-align: center;
       }
+    }
 
-      .detail_card_container > p {
-        font-size: 28px;
-        font-weight: bold;
-      }
-      @media (max-width: 600px) {
-        .detail_card_container > p {
-          text-align: center;
-        }
-      }
+    .detail_card {
+      border: 1px solid #e0f4ff;
+      padding: 30px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      border-radius: 20px;
+      display: flex;
+      flex-direction: row;
+      background-color: white;
+    }
 
-      .detail_card {
-        border: 1px solid lavender;
-        padding: 30px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        border-radius: 20px;
-        display: flex;
-        flex-direction: row;
-      }
+    .detail_card>img {
+      background-color: #e0f4ff;
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 20px;
+      margin-right: 40px;
+    }
 
-      .detail_card > img {
-        background-color: lavender;
-        width: 150px;
-        height: 150px;
-        object-fit: cover;
-        border-radius: 20px;
-        margin-right: 40px;
-      }
+    .detail_info_box {
+      margin-bottom: 5px;
+    }
 
-      .detail_info_box {
-        margin-bottom: 5px;
-      }
+    .detail_info {
+      border-radius: 4px;
+      font-weight: bold;
+      padding: 2px 5px 2px 5px;
+      margin-right: 5px;
+    }
 
-      .detail_info {
-        border-radius: 4px;
-        font-weight: bold;
-        padding: 2px 5px 2px 5px;
-        margin-right: 5px;
-      }
+    .detail_desc {
+      margin-top: 20px;
+    }
 
-      .detail_desc {
-        margin-top: 20px;
-      }
+    .detail_contact {
+      border-top: 2px solid rgb(240, 240, 240);
+      margin-top: 10px;
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
 
-      .detail_contact {
-        border-top: 2px solid rgb(240, 240, 240);
-        margin-top: 10px;
-        padding-top: 10px;
-        padding-bottom: 10px;
-      }
+    .detail_contact> :first-child {
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
 
-      .detail_contact > :first-child {
-        font-weight: bold;
-        margin-bottom: 10px;
-      }
+    .detail_blog>a {
+      color: black;
+    }
+  </style>
+  <script>
+    const members = [
+      {
+        id: 1,
+        name: "서성경",
+        birthday: "1996-09-15",
+        desc: "단순히 기능을 구현하는 개발자가 아니라 서비스의 흐름을 깊이 이해하고 기술로 완성도를 높일 수 있는 백엔드 개발자를 지향합니다.",
+        img: "images/member-서성경.png",
+        mbti: "ESTJ",
+        hobby: ["여행", "코딩", "강아지"],
+        email: "seongkyeong.seo@gmail.com",
+        blog: "https://velog.io/@bibliya_seo",
+      },
+      {
+        id: 2,
+        name: "장혜준",
+        birthday: "1999-10-30",
+        desc: "안녕하세요, 책임감 있고 안정적인 협업을 통해 팀에 기여하는 개발자가 되고 싶은 장혜준입니다! 묵묵하고 꾸준하게 맡은 일은 끝까지 다하는 것이 저의 장점입니다.",
+        img: "images/member-장혜준.png",
+        mbti: "ISFP",
+        hobby: ["유튜브 시청", "음악 감상", "스쿠버다이빙"],
+        email: "iris99hj@gmail.com",
+        blog: "https://onya.tistory.com/",
+      },
+      {
+        id: 3,
+        name: "이현경",
+        birthday: "1994-04-21",
+        desc: "늘 새로운 시선으로 맡은 일을 끝까지 해내는 책임감있는 개발자가 되겠습니다.",
+        img: "images/member-이현경.png",
+        mbti: "ESTP",
+        hobby: ["독서"],
+        email: "slowslow9150@gmail.com",
+        blog: "https://velog.io/@hyunkyung/posts",
+      },
+      {
+        id: 4,
+        name: "이승희",
+        birthday: "1999-12-10",
+        desc: "사용자의 문제를 해결하고 편리함을 제공하여 만족을 주고싶은 백엔드 개발자 이승희 입니다!",
+        img: "images/member-이승희.png",
+        mbti: "INFJ",
+        hobby: ["독서", "음주(칵테일, 위스키)", "게임"],
+        email: "hidden98716@gmail.com",
+        blog: "https://www.notion.so/20d889903f7480838995fbb6e4a5ced4",
+      },
+      {
+        id: 5,
+        name: "최지나",
+        birthday: "1991–09-18",
+        desc: "성장하는 백엔드 개발자 최지나 입니다!",
+        img: "images/member-최지나.png",
+        mbti: "ISTP",
+        hobby: ["독서"],
+        email: "moi404@naver.com",
+        blog: "https://velog.io/@moi404",
+      },
+    ];
 
-      .detail_blog > a {
-        color: black;
-      }
-    </style>
-    <script>
-      const members = [
-        {
-          id: 1,
-          name: "서성경",
-          birthday: "1996-09-15",
-          desc: "단순히 기능을 구현하는 개발자가 아니라 서비스의 흐름을 깊이 이해하고 기술로 완성도를 높일 수 있는 백엔드 개발자를 지향합니다.",
-          img: "images/member-서성경.png",
-          mbti: "ESTJ",
-          hobby: ["여행", "코딩", "강아지"],
-          email: "seongkyeong.seo@gmail.com",
-          blog: "https://velog.io/@bibliya_seo",
-        },
-        {
-          id: 2,
-          name: "장혜준",
-          birthday: "1999-10-30",
-          desc: "안녕하세요, 책임감 있고 안정적인 협업을 통해 팀에 기여하는 개발자가 되고 싶은 장혜준입니다! 묵묵하고 꾸준하게 맡은 일은 끝까지 다하는 것이 저의 장점입니다.",
-          img: "images/member-장혜준.png",
-          mbti: "ISFP",
-          hobby: ["유튜브 시청", "음악 감상", "스쿠버다이빙"],
-          email: "iris99hj@gmail.com",
-          blog: "https://onya.tistory.com/",
-        },
-        {
-          id: 3,
-          name: "이현경",
-          birthday: "1994-04-21",
-          desc: "늘 새로운 시선으로 맡은 일을 끝까지 해내는 책임감있는 개발자가 되겠습니다.",
-          img: "images/member-이현경.png",
-          mbti: "ESTP",
-          hobby: ["독서"],
-          email: "slowslow9150@gmail.com",
-          blog: "https://velog.io/@hyunkyung/posts",
-        },
-        {
-          id: 4,
-          name: "이승희",
-          birthday: "1999-12-10",
-          desc: "사용자의 문제를 해결하고 편리함을 제공하여 만족을 주고싶은 백엔드 개발자 이승희 입니다!",
-          img: "images/member-이승희.png",
-          mbti: "INFJ",
-          hobby: ["독서", "음주(칵테일, 위스키)", "게임"],
-          email: "hidden98716@gmail.com",
-          blog: "https://www.notion.so/20d889903f7480838995fbb6e4a5ced4",
-        },
-        {
-          id: 5,
-          name: "최지나",
-          birthday: "1991–09-18",
-          desc: "성장하는 백엔드 개발자 최지나 입니다!",
-          img: "images/member-최지나.png",
-          mbti: "ISTP",
-          hobby: ["독서"],
-          email: "moi404@naver.com",
-          blog: "https://velog.io/@moi404",
-        },
-      ];
+    const random_color = [
+      "lavender",
+      "Lightblue",
+      "Lemonchiffon",
+      "Lightpink",
+      "Mistyrose",
+      "Moccasin",
+      "Paleturquoise",
+      "Lavenderblush",
+    ];
 
-      const random_color = [
-        "lavender",
-        "Lightblue",
-        "Lemonchiffon",
-        "Lightpink",
-        "Mistyrose",
-        "Moccasin",
-        "Paleturquoise",
-        "Lavenderblush",
-      ];
+    $(document).ready(function () {
+      // 1. url에서 id 추출
+      const params = new URLSearchParams(window.location.search);
+      const id = parseInt(params.get("id"));
 
-      $(document).ready(function () {
-        // 1. url에서 id 추출
-        const params = new URLSearchParams(window.location.search);
-        const id = parseInt(params.get("id"));
+      // 2. id에 해당하는 멤버 찾기
+      const member = members.find((m) => m.id === id);
 
-        // 2. id에 해당하는 멤버 찾기
-        const member = members.find((m) => m.id === id);
-
-        // 3. 정보 표시
-        if (member) {
-          // 멤버일 때 추가하기
-          $("#member_detail").html(`
+      // 3. 정보 표시
+      if (member) {
+        // 멤버일 때 추가하기
+        $("#member_detail").html(`
           <div class="detail_card_container">
             <p>ABOUT ${member.name}</p>
             <div class="detail_card">
@@ -220,45 +225,47 @@
           </div>
         `);
 
-          // 취미 출력 (hobby 배열 돌려서 span 생성)
-          member.hobby.forEach((item) => {
-            $(".detail_hobby_box").append(`
+        // 취미 출력 (hobby 배열 돌려서 span 생성)
+        member.hobby.forEach((item) => {
+          $(".detail_hobby_box").append(`
                 <span class="detail_info">${item}</span>
             `);
-          });
+        });
 
-          // detail_info에 랜덤 색상 넣기 색 안 겹치게 넣기
-          function shuffle(array) {
-            return array.sort(() => Math.random() - 0.5);
-          }
-
-          // 랜덤 컬러 섞기
-          const shuffledColors = shuffle([...random_color]);
-
-          // .detail_info 개수에 맞춰 배경색 적용
-          $(".detail_info").each(function (index) {
-            // 색이 부족하면 다시 섞거나, 무한루프를 막기 위해 나머지 사용
-            const color = shuffledColors[index % shuffledColors.length];
-            $(this).css("background-color", color);
-          });
-        } else {
-          $("#member_detail").html("<h3>해당 멤버를 찾을 수 없습니다.</h3>");
+        // detail_info에 랜덤 색상 넣기 색 안 겹치게 넣기
+        function shuffle(array) {
+          return array.sort(() => Math.random() - 0.5);
         }
-      });
-    </script>
-  </head>
-  <body>
-    <!--Navigation bar-->
-    <nav class="top-navbar">
-      <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="guestbook.html">방명록</a></li>
-      </ul>
-    </nav>
 
-    <!-- 멤버 상세 정보 표시 영역 -->
-    <div class="detail_container">
-      <div id="member_detail"></div>
-    </div>
-  </body>
+        // 랜덤 컬러 섞기
+        const shuffledColors = shuffle([...random_color]);
+
+        // .detail_info 개수에 맞춰 배경색 적용
+        $(".detail_info").each(function (index) {
+          // 색이 부족하면 다시 섞거나, 무한루프를 막기 위해 나머지 사용
+          const color = shuffledColors[index % shuffledColors.length];
+          $(this).css("background-color", color);
+        });
+      } else {
+        $("#member_detail").html("<h3>해당 멤버를 찾을 수 없습니다.</h3>");
+      }
+    });
+  </script>
+</head>
+
+<body class="blue">
+  <!--Navigation bar-->
+  <nav class="top-navbar">
+    <ul class="nav-links">
+      <li><a href="index.html" style="font-size: 1.6rem !important;">🚢Home</a></li>
+      <li><a href="guestbook.html" style="font-size: 1.6rem !important;">🌊방명록</a></li>
+    </ul>
+  </nav>
+
+  <!-- 멤버 상세 정보 표시 영역 -->
+  <div class="detail_container">
+    <div id="member_detail"></div>
+  </div>
+</body>
+
 </html>
