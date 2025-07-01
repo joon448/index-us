@@ -129,23 +129,33 @@
             }
         });
 
-        // 로드 함수
-        let docs = await getDocs(collection(db, "guestbook"));
-        let boardArr = docs.docs.map(doc => {
-            let row = doc.data();
-            row.id = doc.id;
-            return row;
-        });
-        // 일시 기준 정렬
+        // 로드 기능
+        let allData = [];
+        let page = 0;    
+        let isLoading = false;
 
-        boardArr.sort((a, b) => new Date(b.datetime.replace(' ', 'T')) - new Date(a.datetime.replace(' ', 'T')));
+        async function loadAllData() {
+            $('#reply-loading').show();
+            let docs = await getDocs(collection(db, "guestbook"));
+
+            allData = docs.docs.map(doc => ({
+                id: doc.id,
+                ...doc.data()
+            }));
+
+            // 정렬
+            allData.sort((a, b) => new Date(b.datetime.replace(' ', 'T')) - new Date(a.datetime.replace(' ', 'T')));
+            $('#reply-loading').hide();
+
+            // 첫페이지 출력
+            appendNextItems();
+        }
 
         function appendNextItems() {
             const itemsPerPage = 10;
             const start = page * itemsPerPage;
             const end = start + itemsPerPage;
             const nextItems = allData.slice(start, end);
-
 
             nextItems.forEach(item => {
                 $('#reply').append(`
