@@ -15,9 +15,17 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js";
         import { getFirestore } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js";
-        import { collection, addDoc } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js";
+        import { collection, doc, getDoc, addDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js";
         import { getDocs } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js";
-        import { firebaseConfig } from './firebaseConfig.js';
+
+        const firebaseConfig = {
+            apiKey: "",
+            authDomain: "index-us-db.firebaseapp.com",
+            projectId: "index-us-db",
+            storageBucket: "index-us-db.firebasestorage.app",
+            messagingSenderId: "",
+            appId: ""
+        };
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
@@ -84,11 +92,53 @@
             }
         })
 
+        // 삭제 함수
+        $(document).on('click', '#deletebtn', async function (e) {
+            e.preventDefault();
+            let id = $(this).data('id');
+
+            const docRef = doc(db, "guestbook", id);
+            const docSnap = await getDoc(docRef);
+
+            if (!docSnap.exists()) {
+                alert('잘못된 요청');
+                return;
+            }
+
+            let pw = prompt("비밀번호를 입력하세요");
+
+            if (pw == null || pw.length == 0) {
+                alert('입력내용이 없습니다.');
+                return;
+            }
+
+            pw = await hashPassword(pw);
+
+            if (docSnap.data()['password'] !== pw) {
+                alert('비밀번호가 일치하지 않습니다.');
+                return;
+            }
+
+            try {
+                await deleteDoc(docRef);
+                alert('삭제를 완료했습니다.');
+                window.location.reload();
+            } catch (e) {
+                alert('삭제 중 에러 발생: ' + e.message);
+            }
+        });
+
         // 로드 함수
         let docs = await getDocs(collection(db, "guestbook"));
-        docs.forEach((doc) => {
+        let boardArr = docs.docs.map(doc => {
             let row = doc.data();
+            row.id = doc.id;
+            return row;
+        });
+        // 일시 기준 정렬
+        boardArr.sort((a, b) => new Date(b.datetime.replace(' ', 'T')) - new Date(a.datetime.replace(' ', 'T')));
 
+        boardArr.forEach((row) => {
             let name = row['name']
             let content = row['content']
             let datetime = row['datetime']
@@ -103,8 +153,12 @@
                         <div class="col">${content}</div>
                         </div>
                         <div class="row justify-content-between fs-6 fw-light align-items-center">
-                            <div class="col-2 text-body-tertiary fs-6">${datetime}</div>
-                            <button type="button" class="btn btn-danger btn-sm col-1">X</button>
+                            <div class="col-4 text-body-tertiary fs-6">${datetime}</div>
+                            <button 
+                                type="button" 
+                                class="btn btn-danger btn-sm col-1" 
+                                id="deletebtn" 
+                                data-id=${row.id}>X</button>
                         </div>
                     </div>
                 </div>
@@ -149,20 +203,7 @@
         </div>
         <div class="bg-dark rounded-3">
             <div id="reply" class="row py-2 px-5 row-cols-1 row-cols-md g-1">
-                <div class="col bg-dark-subtle p-2 fs-5 rounded-3">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col">이름</div>
-                        </div>
-                        <div class="row">
-                            <div class="col">내용</div>
-                        </div>
-                        <div class="row justify-content-between fs-6 fw-light align-items-center">
-                            <div class="col-2 text-body-tertiary fs-6">2025-12-31</div>
-                            <button type="button" class="btn btn-danger btn-sm col-1">X</button>
-                        </div>
-                    </div>
-                </div>
+
             </div>
         </div>
     </div>
