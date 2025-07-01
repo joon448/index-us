@@ -159,7 +159,7 @@
 
             nextItems.forEach(item => {
                 $('#reply').append(`
-                <div class="col bg-dark-subtle p-2 fs-5 rounded-3">
+                <div class="postbox col p-2 fs-5 rounded-3">
                     <div class="container">
                         <div class="row">
                             <div class="col">${item.name}</div>
@@ -249,9 +249,13 @@
         .guest_post {
             border: 1px solid white;
             border-radius: 20px;
-            background-color: #E5F0FF;
+            background-color:#D0E8FF;
             padding-bottom: 10px;
             font-family: 'exqt', sans-serif;
+        }
+
+        .postbox{
+            background-color:#E5F0FF;
         }
 
         .name {
