@@ -1,16 +1,10 @@
-/* 1. exqt 웹폰트 정의 - 눈누에서 제공하는 '엑큐' 폰트 */
-/* font-family 이름을 'exqt'로 지정했고, woff2 포맷의 웹폰트를 외부 URL에서 불러옴 */
 @font-face {
-    font-family: 'exqt';
-    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2506-1@1.0/exqt.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
+  font-family: 'exqt';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2506-1@1.0/exqt.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
 }
 
-/* 2. 본문(body) 기본 스타일 설정 */
-/* margin 제거하여 기본 여백 없애고, 웹폰트 'exqt'를 우선 적용, 
-   대체로 'Segoe UI', 'Noto Sans KR', 그리고 기본 산세리프 폰트가 차례로 적용됨 */
-/* 글자색은 어두운 회색(#222), 줄간격(line-height) 1.6으로 가독성 높임 */
 body {
   margin: 0;
   font-family: 'exqt', 'Segoe UI', 'Noto Sans KR', sans-serif;
@@ -18,11 +12,6 @@ body {
   line-height: 1.6;
 }
 
-/* 3. 배경 및 레이아웃 설정 - body에 blue 클래스가 있을 때 */
-/* 중앙을 기준으로 하는 원형(radial) 그라디언트 배경색 적용, 
-   밝은 하늘색(#e0f4ff)에서 연한 파란색(#b3dcff)으로 부드럽게 변함 */
-/* 최소 높이 100vh (화면 전체 높이 확보), flexbox로 세로 레이아웃 구성 */
-/* 세로 방향 컬럼으로 배치하여 내부 요소가 위에서 아래로 쌓임 */
 body.blue {
   background: radial-gradient(circle at center, #e0f4ff, #b3dcff);
   min-height: 100vh;
@@ -30,60 +19,47 @@ body.blue {
   flex-direction: column;
 }
 
-/* 4. 네비게이션 바(nav) 스타일 */
-/* flexbox로 좌우 공간 분배 및 수직 중앙 정렬 */
-/* 반투명 흰색 배경(rgba(255,255,255,0.9)) 적용으로 배경이 살짝 보임 */
-/* 패딩 1rem 상하, 2rem 좌우로 넉넉한 공간 확보 */
-/* 살짝 그림자 효과로(nav 아래) 떠있는 느낌 주기 */
 nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
   background-color: rgba(255, 255, 255, 0.9);
   padding: 1rem 2rem;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0 auto;
+  height: 80px;
+  line-height: 80px;
 }
 
-/* 5. 로고 텍스트 스타일 */
-/* 글자 크기 1.5rem로 약간 크게, 두껍게(bold) 강조 */
-/* 파란색(#007acc)으로 기술 느낌 강조 */
 .logo {
   font-size: 1.5rem;
   font-weight: bold;
   color: #007acc;
 }
 
-/* 6. 네비게이션 링크 목록 */
-/* 기본 점 bullet 제거 */
-/* flexbox로 가로 배열, 각 항목 간격 1.5rem씩 띄움 */
 .nav-links {
   list-style: none;
   display: flex;
   gap: 1.5rem;
+  margin: 0;
+  padding: 0;
 }
 
-/* 7. 네비게이션 링크(a) 스타일 */
-/* 밑줄 제거 */
-/* 파란색(#007acc) 글자색, 중간 굵기(font-weight: 500) */
-/* 색상 변화 시 부드러운 전환 효과 적용(0.2초) */
 .nav-links a {
   text-decoration: none;
   color: #007acc;
   font-weight: 500;
   transition: color 0.2s;
+  font-size: 1.1rem;
+  padding: 0.5rem;
 }
 
-/* 8. 링크에 마우스 올렸을 때 색상 변화 */
-/* 좀 더 진한 파란색(#005b99)으로 변경 */
 .nav-links a:hover {
   color: #005b99;
 }
 
-/* 9. 본문 main 영역 스타일 */
-/* flex:1로 부모의 남은 공간 모두 차지 */
-/* flexbox 세로 배치, 중앙 정렬 (수평, 수직 모두) */
-/* 텍스트는 중앙 정렬 */
-/* 패딩 2rem으로 내부 여백 충분히 줌 */
 main {
   flex: 1;
   display: flex;
@@ -94,42 +70,12 @@ main {
   padding: 2rem;
 }
 
-/* 10. 본문 제목(h1) 스타일 */
-/* 글자 크기 2.5rem로 크게, 아래쪽 마진 1rem */
 h1 {
   font-size: 2.5rem;
   margin-bottom: 1rem;
 }
 
-/* 11. 본문 문단(p) 스타일 */
-/* 글자 크기 1.2rem로 약간 키우고, 아래쪽 마진 2rem으로 충분한 공간 */
 p {
   font-size: 1.2rem;
   margin-bottom: 2rem;
-}
-
-/* 12. 버튼 스타일 */
-/* 배경은 기본 파란색(#007acc) */
-/* 글자색은 흰색 */
-/* 패딩 위아래 0.75rem, 좌우 1.5rem으로 크고 클릭하기 좋게 */
-/* 테두리는 없애고 */
-/* 모서리는 8px 둥글게 처리 */
-/* 링크 스타일 제거(밑줄 제거) */
-/* 폰트 두께는 600으로 꽤 굵게 */
-/* 배경색 변화 부드럽게 전환 */
-.btn {
-  background-color: #007acc;
-  color: white;
-  padding: 0.75rem 1.5rem;
-  border: none;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: 600;
-  transition: background-color 0.2s ease;
-}
-
-/* 13. 버튼에 마우스 올렸을 때 배경색 변경 */
-/* 좀 더 진한 파란색(#005b99) */
-.btn:hover {
-  background-color: #005b99;
 }
