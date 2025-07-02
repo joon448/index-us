@@ -164,12 +164,12 @@
                 <div class="postbox col p-2 fs-5 rounded-3">
                     <div class="container">
                         <div class="row">
-                            <div class="col">${item.name}</div>
+                            <div class="guest_name col">${item.name}</div>
                         </div>
                         <div class="row">
-                        <div class="col">${item.content}</div>
+                        <div class="guest_content col">${item.content}</div>
                         </div>
-                        <div class="row justify-content-between fs-6 fw-light align-items-center">
+                        <div class="guest_datetime row justify-content-between fs-6 fw-light align-items-center">
                             <div class="col-4 text-body-tertiary fs-6">${item.datetime}</div>
                             <button 
                                 type="button" 
@@ -225,20 +225,11 @@
         }
 
         .writing_box {
-            font-family: 'exqt', sans-serif;
+            font-size: 14px;
             text-align: center;
             border: 1px solid white;
             border-radius: 20px;
-            background-color: transparent;
-        }
-
-        .guestbook_box {
-            text-align: start;
-            border: 1px solid white;
-            border-radius: 20px;
-            background-color: transparent;
-            padding-left: 10px;
-            padding-right: 10px;
+            background-color: #D0E8FF;
         }
 
         .guest_post {
@@ -257,10 +248,6 @@
             font-family: 'exqt', sans-serif;
         }
 
-        .content {
-            font-family: 'exqt', sans-serif;
-        }
-
         #inputNickname {
             background-color: #E5F0FF;
         }
@@ -273,6 +260,21 @@
             background-color: #E5F0FF;
         }
 
+        .guest_name{
+             font-family: 'exqt', sans-serif;
+             color: #0A84FF;
+        }
+        .guest_datetime{
+             font-family: 'exqt', sans-serif;
+        }
+        .guest_content{
+             font-family: 'Noto Sans KR', sans-serif;
+             font-size: 15px;
+        }
+        .inputbtn{
+        font-family: 'exqt', sans-serif;
+
+        }
 
         .x_button {
             font-family: 'exqt', sans-serif;
@@ -309,7 +311,7 @@
                             <input type="password" class="form-control" id="inputPassword" placeholder="비밀번호">
                         </div>
                         <div class="col-2 offset-6 text-end">
-                            <button type="submit" class="btn btn-primary" id="savebtn">등록하기</button>
+                            <button type="submit" class="inputbtn btn btn-primary" id="savebtn">등록하기</button>
                         </div>
                     </div>
                     <div class="row">
