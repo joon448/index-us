@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini Game</title>
+    <link rel="stylesheet" href="css/style2.css" />
+    <style>
+        @font-face {
+            font-family: 'exqt';
+            src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2506-1@1.0/exqt.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        body {
+            font-family: 'exqt', sans-serif;
+            text-align: center;
+        }
+
+        h1 {
+            margin-top: 40px;
+        }
+
+        .game-board {
+            display: grid;
+            grid-template-columns: repeat(4, 120px);
+            justify-content: center;
+            margin: 40px auto;
+            gap: 15px;
+        }
+
+        .card {
+            width: 120px;
+            height: 120px;
+            perspective: 1000px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+        }
+
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: transform 0.5s;
+        }
+
+        .card.flipped .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-front {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            transform: rotateY(180deg);
+            background-size: cover;
+            background-position: center;
+            border-radius: 10px;
+        }
+
+        .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            background-image: url("images/back.png");
+            background-size: 30px;
+            background-position: center;
+            background-repeat: no-repeat;
+            border-radius: 10px;
+        }
+
+        #restart-button {
+            font-family: 'exqt', sans-serif;
+            font-size: large;
+            background-color: #E5F0FF;
+            border-radius: 10px;
+            border: 1px solid white;
+            color: black;
+            width: 100px;
+            height: 50px;
+        }
+    </style>
+    <script type="module">
+
+        const members = [
+            "member-서성경",
+            "member-이현경",
+            "member-이승희",
+            "member-최지나",
+            "member-장혜준",
+            "team"
+        ];
+
+        let cards = [...members, ...members];
+        let firstCard = null;
+        let secondCard = null;
+        let lockBoard = false;
+        let matchedCount = 0;
+
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function resetBoard() {
+            [firstCard, secondCard] = [null, null];
+            lockBoard = false;
+        }
+
+        function checkMatch() {
+            if (firstCard.dataset.name === secondCard.dataset.name) {
+                matchedCount++;
+                resetBoard();
+                if (matchedCount === members.length) {
+                    document.getElementById("message").textContent = "🎉 축하합니다! 모든 카드를 맞추셨어요!";
+                    document.getElementById("restart-button").style.display = "inline-block";
+                }
+            }
+            else {
+                lockBoard = true;
+                setTimeout(() => {
+                    firstCard.classList.remove("flipped");
+                    secondCard.classList.remove("flipped");
+                    resetBoard();
+                }, 500);
+            }
+        }
+
+        function handleFlip(card) {
+            if (lockBoard || card === firstCard || card.classList.contains("flipped")) return;
+
+            card.classList.add("flipped");
+
+            if (!firstCard) {
+                firstCard = card;
+                return
+            }
+
+            secondCard = card;
+            checkMatch();
+        }
+
+        function createCard(name) {
+            const card = document.createElement("div");
+            card.classList.add("card");
+            card.dataset.name = name;
+
+            card.innerHTML = `<div class="card-inner">
+                <div class="card-front" style="background-image: url('images/${name}.png')"></div>
+                <div class="card-back"></div>
+            </div>`
+
+            card.addEventListener("click", () => handleFlip(card))
+            return card;
+        }
+
+        function startGame() {
+            const board = document.getElementById("game-board");
+            board.innerHTML = "";
+            matchedCount = 0;
+            shuffle(cards).forEach((name) => {
+                const card = createCard(name);
+                board.appendChild(card);
+            });
+        }
+
+        startGame();
+        document.getElementById("restart-button").addEventListener("click", () => {
+            location.reload();
+        });
+
+    </script>
+</head>
+
+<body class="blue">
+    <!--Navigation bar-->
+    <nav class="top-navbar">
+        <ul class="nav-links">
+            <li><a href="index.html" style="font-size: 1.6rem !important;">🚢Home</a></li>
+            <li><a href="guestbook.html" style="font-size: 1.3rem !important;">🌊방명록</a></li>
+        </ul>
+    </nav>
+
+    <h1>짝맞추기 미니 게임</span>
+        <div class="game-board" id="game-board"></div>
+        <p id="message"></p>
+        <button class="btn btn-primary" id="restart-button">다시하기</button>
+</body>
+
+</html>
